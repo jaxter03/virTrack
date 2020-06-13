@@ -1,0 +1,34 @@
+module TestHospital where
+
+import ContactRelatedContracts
+import DataStructure
+
+scenaro1 = scenario do
+  alice <- getParty "alice" 
+  bob <- getParty "bob" 
+  authority <- getParty "authority" 
+  hospital <- getParty "hospital" 
+  let 
+    aliceDetails = PersonalDetails with name ="Alice" ; phoneNo = "00000" ; address = "address"
+    bobDeatils = PersonalDetails with name ="Bob" ; phoneNo = "00001" ; address = "address2"
+
+  personalContract <- submit alice do 
+    create PersonalContract with
+      userPartyId = alice
+      personalDetails = aliceDetails
+
+  contactConfirmationContractid <- submit alice do
+    exercise personalContract CreateContactConfirmationContract
+
+
+  maybeInfectedId <- submit alice do
+    exercise contactConfirmationContractid MaybeInfected with
+      hospital = hospital
+
+  submit hospital do
+    exercise maybeInfectedId ConfirmCase with
+      govAuthority = authority
+
+  
+
+  

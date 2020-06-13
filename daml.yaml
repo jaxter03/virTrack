@@ -1,0 +1,24 @@
+sdk-version: 1.1.1
+name: knolTrackF
+source: daml
+init-script: Setup:initialize
+parties:
+  - boy
+  - towerGuard
+  - gateGuard
+  - colleague1
+  - colleague2
+  - securityHead
+  - guard1
+  - guard2
+  - resident1
+  - resident2
+  - hospital
+  - authority
+version: 0.0.1
+dependencies:
+  - daml-prim
+  - daml-stdlib
+  - daml-script
+sandbox-options:
+  - --wall-clock-time

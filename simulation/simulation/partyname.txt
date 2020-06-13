@@ -1,0 +1,10 @@
+boy
+towerGuard
+gateGuard
+colleague1
+colleague2
+securityHead
+guard1
+guard2
+resident1
+resident2

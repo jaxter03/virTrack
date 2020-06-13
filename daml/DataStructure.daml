@@ -1,0 +1,8 @@
+module DataStructure where
+
+data PersonalDetails = PersonalDetails with
+
+  name : Text
+  phoneNo : Text
+  address : Text
+    deriving (Eq, Show)

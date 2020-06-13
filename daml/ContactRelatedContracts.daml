@@ -1,0 +1,255 @@
+module ContactRelatedContracts where
+import InfectionContracts
+import DataStructure
+
+template PersonalContract
+  with
+    userPartyId : Party
+    personalDetails : PersonalDetails
+    
+
+  where
+    signatory  userPartyId
+    controller userPartyId can
+
+    
+
+    -- CREATE CONTRACT CONFIRMATION CONTRACT------------------------------------------------
+      nonconsuming CreateContactConfirmationContract : ContractId ContactConfirmationContract
+        do
+          create ContactConfirmationContract with
+            userPartyId = userPartyId
+            personalDeitals = personalDetails
+            infectionLevel = "normal" 
+            contactedPartyIdList = []
+    -- -------------------------------------------------------------------------------------
+
+template ContactConfirmationContract
+  with
+    userPartyId : Party
+    personalDeitals : PersonalDetails 
+    infectionLevel : Text
+    contactedPartyIdList : [Party]
+
+  where 
+    signatory userPartyId
+ 
+    controller userPartyId can
+
+    -- ADD CONTACTED PARTY TO LIST-----------------------------------------------------------
+      UpdateContactList : (ContractId ContactConfirmationContract, Optional (ContractId Alert))
+        with
+          contactedPartyId  : Party
+        do
+          if infectionLevel /= "normal" && infectionLevel /= "L3-Low-Infection-Danger"
+          then 
+            if infectionLevel == "infected"
+            then do
+              newContactConfirmationContract <- create this with
+                contactedPartyIdList = contactedPartyId :: contactedPartyIdList
+
+              alertContract <- create Alert with
+                infectionDegree = "L1-High-Infection-Danger"
+                infectedParty = userPartyId
+                contactedParty = contactedPartyId
+
+              return (newContactConfirmationContract, Some alertContract)
+
+            else
+              if infectionLevel == "L1-High-Infection-Danger"
+              then do
+                newContactConfirmationContract <- create this with
+                  contactedPartyIdList = contactedPartyId :: contactedPartyIdList
+
+                alertContract <- create Alert with
+                  infectionDegree = "L2-Moderate-Infection-Danger"
+                  infectedParty = userPartyId
+                  contactedParty = contactedPartyId
+
+                return (newContactConfirmationContract, Some alertContract)
+
+              else do
+                
+                  newContactConfirmationContract <- create this with
+                    contactedPartyIdList = contactedPartyId :: contactedPartyIdList
+
+                  alertContract <- create Alert with
+                    infectionDegree = "L3-Low-Infection-Danger"
+                    infectedParty = userPartyId
+                    contactedParty = contactedPartyId
+
+                  return (newContactConfirmationContract, Some alertContract)
+
+
+                
+          else do
+            newContactConfirmationContract <- create this with
+              contactedPartyIdList = contactedPartyId :: contactedPartyIdList
+
+            return (newContactConfirmationContract, None)
+    ------------------------------------------------------------------
+
+    -- PARTY MAYBE INFECTED-------------------------------------------
+      nonconsuming MaybeInfected : ContractId Covid19InfectedMaybe
+        with
+          hospital : Party
+        do          
+          create Covid19InfectedMaybe with
+            hospital = hospital
+            personalDetails = personalDeitals
+            userPartyId = userPartyId
+            contactConfirmationContractid = self
+            contactedPartyIdList = contactedPartyIdList
+    --------------------------------------------------------------------
+
+    -- AUTOMATION --- CREATE MODERATE LEVEL INFECTION-------------------
+      CreateModerateInfectionDanger : (ContractId PersonalDetailsSharingContract,ContractId L2ModerateInfectionDangerContract,ContractId ContactConfirmationContract )
+        with
+          hospital : Party
+          govAuthority : Party
+          infectedParty : Party
+        do
+          let contactedParties = takeWhile (/= infectedParty) contactedPartyIdList
+          personalDetailsSharingContractId <- create PersonalDetailsSharingContract with
+            infectionDegree = "L1-High-Infection-Danger"
+            personalDetails = personalDeitals
+            govAuthority = govAuthority
+            hospital = hospital
+            userPartyId = userPartyId
+          l2ModerateInfectionDangerContract <- create L2ModerateInfectionDangerContract with            
+            userPartyId = userPartyId
+            contactedPartyIdList = contactedParties
+
+          newContactConfirmationContract <- create this with
+            infectionLevel = "L1-High-Infection-Danger"
+
+          return (personalDetailsSharingContractId, l2ModerateInfectionDangerContract, newContactConfirmationContract)
+    ----------------------------------------------------------------------------------------
+
+    -- AUTIMATION --- CREATE LOW LEVEL DAGER INGECTION ALERT ------------------------------
+      CreateLowInfectectionDanger : (ContractId PersonalDetailsSharingContract,ContractId L3LowInfectionDangerContract, ContractId ContactConfirmationContract)
+        with
+          infectedParty : Party
+          govAuthority : Party
+          hospital : Party
+
+        do
+          let contactedParties = takeWhile (/= infectedParty) contactedPartyIdList
+          personalDetailsSharingContractId <- create PersonalDetailsSharingContract with
+            infectionDegree = "L2-Moderate-Infection-Danger"
+            personalDetails = personalDeitals
+            govAuthority = govAuthority
+            hospital = hospital
+            userPartyId = userPartyId
+
+          l3LowInfectionDangerContract <- create L3LowInfectionDangerContract with            
+            userPartyId = userPartyId
+            contactedPartyIdList = contactedParties
+
+          newContactConfirmationContract <- create this with
+            infectionLevel = "L2-Moderate-Infection-Danger"
+
+          return (personalDetailsSharingContractId, l3LowInfectionDangerContract, newContactConfirmationContract)
+
+    choice ChangeInfectionLevel : ContractId ContactConfirmationContract with
+        hospital : Party
+
+      controller hospital
+        do
+          create this with
+            infectionLevel = "infected"
+     
+ --------------------------------------------------------------------------------------------      
+
+
+
+
+template Covid19InfectedMaybe
+  with
+    
+    hospital : Party
+    userPartyId : Party
+    contactConfirmationContractid : ContractId ContactConfirmationContract
+    personalDetails : PersonalDetails
+    contactedPartyIdList : [Party]
+    
+  where
+    signatory userPartyId
+
+    controller hospital can
+
+-- CONFIRM CASE BY HOSPITAL WILL SHARE USER PERSONAL DETAILS AUTHORITY AND ALERT ALL WHO CONTACTED------ 
+      ConfirmCase : (ContractId PersonalDetailsSharingContract, ContractId L1HighInfectionDangerContract, ContractId ContactConfirmationContract)
+        with
+          govAuthority : Party
+        do
+          personalContractId <- create PersonalDetailsSharingContract with
+            infectionDegree = "infected"
+            personalDetails = personalDetails
+            govAuthority = govAuthority
+            hospital = hospital
+            userPartyId = userPartyId
+
+          
+
+          newContactConfirmationContractid <- create ContactConfirmationContract with
+            userPartyId = userPartyId
+            personalDeitals = personalDetails
+            infectionLevel = "infected" 
+            contactedPartyIdList = contactedPartyIdList 
+
+          
+          l1HighInfectionDangerContract <- create L1HighInfectionDangerContract with
+            hospital = hospital
+            userPartyId = userPartyId
+            contactedPartyIdList = contactedPartyIdList
+
+          return (personalContractId, l1HighInfectionDangerContract, newContactConfirmationContractid)
+
+-----------------------------------------------------------------------------------------------------------
+--- TODO-------ALSO ADD DECLINE CASE BY HOSPITAL ----------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+
+
+-- TODO -------------------------------------------------------------
+--ADD STATS
+--ALERT AFTER BEING INFACTED (IF ELSE)
+--ADD SIGNAOTRY IN L1,L2,L3
+--ADD FUNCTION TO ONLY COVER WHO ARE AFFECTED AFTER
+
+
+
+
+template L1HighInfectionDangerContract
+  with  
+    hospital : Party
+    userPartyId : Party
+    contactedPartyIdList : [Party]
+  where
+    signatory hospital, userPartyId
+    observer contactedPartyIdList
+
+
+
+template L2ModerateInfectionDangerContract
+  with   
+    userPartyId : Party
+    contactedPartyIdList : [Party]
+  where
+    signatory userPartyId
+    observer contactedPartyIdList
+
+
+
+template L3LowInfectionDangerContract
+  with    
+    userPartyId : Party
+    contactedPartyIdList : [Party]
+  where
+    signatory userPartyId
+    observer contactedPartyIdList
