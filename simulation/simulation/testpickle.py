@@ -1,8 +1,5 @@
 import pickle
 
-mylist = {}
-with open('datafile.txt', 'wb') as fh:
-   pickle.dump(mylist, fh)
 
 
 

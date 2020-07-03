@@ -222,3 +222,62 @@ java.sql.SQLTransientConnectionException: daml.index.db.connection.api-server - 
 18:21:58.206 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
 18:22:09.407 [pool-1-thread-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
 18:22:09.429 [pool-1-thread-4] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = 0e58f404-a727-4f7f-9af4-ef7b736defd4, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+12:46:06.701 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+12:46:18.160 [pool-1-thread-6] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+12:46:18.211 [pool-1-thread-6] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = eb89bf57-9ac0-4cc7-aab5-4303d6cf7a6a, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+15:50:30.478 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+15:50:40.264 [pool-1-thread-3] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+15:50:40.307 [pool-1-thread-3] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = 4a0c14d2-5e65-4c90-bb48-1c8fd31cdb9c, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+16:20:28.090 [sandbox-akka.actor.default-dispatcher-6] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+16:20:38.577 [pool-1-thread-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+16:20:38.600 [pool-1-thread-2] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = fc8c9780-e66d-4088-ae5b-ae361f1b79ac, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+12:05:18.983 [sandbox-worker-grpc-event-loop-8281e126-caff-48ef-89c2-ac79d915810f-1-1] INFO  i.n.h.c.h.DefaultHttp2ConnectionDecoder - [id: 0x7c7e261a, L:/127.0.0.1:6865 ! R:/127.0.0.1:45490] ignoring DATA frame for stream 475793. Stream sent after GOAWAY sent 
+12:05:18.983 [sandbox-worker-grpc-event-loop-8281e126-caff-48ef-89c2-ac79d915810f-1-2] INFO  i.n.h.c.h.DefaultHttp2ConnectionDecoder - [id: 0x87cd48b5, L:/127.0.0.1:6865 ! R:/127.0.0.1:45578] ignoring DATA frame for stream 476803. Stream sent after GOAWAY sent 
+12:05:18.985 [sandbox-worker-grpc-event-loop-8281e126-caff-48ef-89c2-ac79d915810f-1-1] INFO  i.n.h.c.h.DefaultHttp2ConnectionDecoder - [id: 0xb1cb1443, L:/127.0.0.1:6865 ! R:/127.0.0.1:45590] ignoring DATA frame for stream 475355. Stream sent after GOAWAY sent 
+12:41:43.298 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+12:41:55.443 [pool-1-thread-1] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+12:41:55.546 [pool-1-thread-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = 2b29f67f-ffa5-48cb-9729-9eebdca26d98, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+12:42:52.400 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+12:43:00.551 [scala-execution-context-global-75] ERROR com.daml.resources.ProgramResource - Shutting down because of an initialization error. 
+com.daml.platform.apiserver.GrpcServerOwner$UnableToBind: The API server was unable to bind to port 6865. Terminate the process occupying the port, or choose a different one.
+Caused by: java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:220)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:132)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:551)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.bind(DefaultChannelPipeline.java:1332)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:503)
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:488)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:984)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:247)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:355)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:416)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:515)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:918)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+12:43:18.647 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+12:43:26.494 [pool-1-thread-1] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+12:43:26.513 [pool-1-thread-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = f0c56084-9166-43c3-84a3-de376d5b6b60, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+16:30:30.492 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+16:30:39.247 [pool-1-thread-1] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+16:30:39.266 [pool-1-thread-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = 0682b589-d22c-49c7-a5cf-7d0c9caa3278, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+12:57:09.712 [sandbox-akka.actor.default-dispatcher-6] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+12:57:21.904 [pool-1-thread-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+12:57:21.923 [pool-1-thread-4] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = 8362ea67-0780-4fdf-8c29-5ea1207406f3, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+13:04:54.226 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+13:05:05.444 [pool-1-thread-1] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+13:05:05.466 [pool-1-thread-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = 71e699ed-f625-41ae-a0d0-8399bac5bfb1, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+13:24:44.822 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+13:24:52.766 [pool-1-thread-3] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+13:24:52.786 [pool-1-thread-2] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = 101e4bba-3d75-4260-965a-c3981425548e, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+13:31:49.385 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+13:32:03.574 [pool-1-thread-5] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+13:32:03.623 [pool-1-thread-4] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = b301e8f6-34f0-45f9-bf47-c1cc3c72b281, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+13:40:30.179 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+13:40:42.641 [pool-1-thread-3] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+13:40:42.661 [pool-1-thread-5] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.1.1 with ledger-id = b3daf131-7425-4bf6-a431-64bb46f037f4, port = 6865, dar file = List(.daml/dist/knolTrackF-0.0.1.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 

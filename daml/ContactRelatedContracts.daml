@@ -1,5 +1,5 @@
 module ContactRelatedContracts where
-import InfectionContracts
+
 import DataStructure
 
 template PersonalContract
@@ -253,3 +253,25 @@ template L3LowInfectionDangerContract
   where
     signatory userPartyId
     observer contactedPartyIdList
+
+
+
+template PersonalDetailsSharingContract
+  with
+    infectionDegree : Text
+    personalDetails : PersonalDetails
+    govAuthority : Party
+    hospital : Party
+    userPartyId : Party
+  where
+    signatory userPartyId
+    observer govAuthority
+
+template Alert
+  with
+    infectionDegree : Text
+    infectedParty : Party
+    contactedParty : Party
+  where
+    signatory infectedParty
+    observer contactedParty

@@ -5,4 +5,5 @@ data PersonalDetails = PersonalDetails with
   name : Text
   phoneNo : Text
   address : Text
+  pincode : Int
     deriving (Eq, Show)

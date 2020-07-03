@@ -1,0 +1,114 @@
+digraph G {
+compound=true;
+rankdir=LR;
+subgraph cluster_Asset{
+n0[label=Create][color=green]; 
+n1[label=Archive][color=red]; 
+n2[label=Give][color=red]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>Asset</b></td></tr><tr><td align="left">issuer</td></tr> 
+<tr><td align="left">owner</td></tr> 
+<tr><td align="left">name</td></tr> 
+</table>>;color=blue
+}subgraph cluster_Alert{
+n3[label=Create][color=green]; 
+n4[label=Archive][color=red]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>Alert</b></td></tr><tr><td align="left">infectionDegree</td></tr> 
+<tr><td align="left">infectedParty</td></tr> 
+<tr><td align="left">contactedParty</td></tr> 
+</table>>;color=blue
+}subgraph cluster_ContactConfirmationContract{
+n5[label=Create][color=green]; 
+n6[label=Archive][color=red]; 
+n7[label=UpdateContactList][color=red]; 
+n8[label=CreateModerateInfectionDanger][color=red]; 
+n9[label=CreateLowInfectectionDanger][color=red]; 
+n10[label=MaybeInfected][color=green]; 
+n11[label=ChangeInfectionLevel][color=red]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>ContactConfirmationContract</b></td></tr><tr><td align="left">userPartyId</td></tr> 
+<tr><td align="left">personalDeitals.name</td></tr> 
+<tr><td align="left">personalDeitals.phoneNo</td></tr> 
+<tr><td align="left">personalDeitals.address</td></tr> 
+<tr><td align="left">personalDeitals.pincode</td></tr> 
+<tr><td align="left">infectionLevel</td></tr> 
+<tr><td align="left">contactedPartyIdList</td></tr> 
+</table>>;color=blue
+}subgraph cluster_Covid19InfectedMaybe{
+n12[label=Create][color=green]; 
+n13[label=Archive][color=red]; 
+n14[label=ConfirmCase][color=red]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>Covid19InfectedMaybe</b></td></tr><tr><td align="left">hospital</td></tr> 
+<tr><td align="left">userPartyId</td></tr> 
+<tr><td align="left">contactConfirmationContractid</td></tr> 
+<tr><td align="left">personalDetails.name</td></tr> 
+<tr><td align="left">personalDetails.phoneNo</td></tr> 
+<tr><td align="left">personalDetails.address</td></tr> 
+<tr><td align="left">personalDetails.pincode</td></tr> 
+<tr><td align="left">contactedPartyIdList</td></tr> 
+</table>>;color=blue
+}subgraph cluster_L1HighInfectionDangerContract{
+n15[label=Create][color=green]; 
+n16[label=Archive][color=red]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>L1HighInfectionDangerContract</b></td></tr><tr><td align="left">hospital</td></tr> 
+<tr><td align="left">userPartyId</td></tr> 
+<tr><td align="left">contactedPartyIdList</td></tr> 
+</table>>;color=blue
+}subgraph cluster_L2ModerateInfectionDangerContract{
+n17[label=Create][color=green]; 
+n18[label=Archive][color=red]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>L2ModerateInfectionDangerContract</b></td></tr><tr><td align="left">userPartyId</td></tr> 
+<tr><td align="left">contactedPartyIdList</td></tr> 
+</table>>;color=blue
+}subgraph cluster_L3LowInfectionDangerContract{
+n19[label=Create][color=green]; 
+n20[label=Archive][color=red]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>L3LowInfectionDangerContract</b></td></tr><tr><td align="left">userPartyId</td></tr> 
+<tr><td align="left">contactedPartyIdList</td></tr> 
+</table>>;color=blue
+}subgraph cluster_PersonalContract{
+n21[label=Create][color=green]; 
+n22[label=Archive][color=red]; 
+n23[label=CreateContactConfirmationContract][color=green]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>PersonalContract</b></td></tr><tr><td align="left">userPartyId</td></tr> 
+<tr><td align="left">personalDetails.name</td></tr> 
+<tr><td align="left">personalDetails.phoneNo</td></tr> 
+<tr><td align="left">personalDetails.address</td></tr> 
+<tr><td align="left">personalDetails.pincode</td></tr> 
+</table>>;color=blue
+}subgraph cluster_PersonalDetailsSharingContract{
+n24[label=Create][color=green]; 
+n25[label=Archive][color=red]; 
+label=<<table align = "left" border="0" cellborder="0" cellspacing="1">
+<tr><td align="center"><b>PersonalDetailsSharingContract</b></td></tr><tr><td align="left">infectionDegree</td></tr> 
+<tr><td align="left">personalDetails.name</td></tr> 
+<tr><td align="left">personalDetails.phoneNo</td></tr> 
+<tr><td align="left">personalDetails.address</td></tr> 
+<tr><td align="left">personalDetails.pincode</td></tr> 
+<tr><td align="left">govAuthority</td></tr> 
+<tr><td align="left">hospital</td></tr> 
+<tr><td align="left">userPartyId</td></tr> 
+</table>>;color=blue
+}n2->n0
+n7->n3
+n7->n5
+n8->n5
+n8->n17
+n8->n24
+n9->n5
+n9->n19
+n9->n24
+n10->n12
+n11->n5
+n14->n5
+n14->n15
+n14->n24
+n23->n5
+
+}

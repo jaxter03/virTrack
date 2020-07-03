@@ -16,8 +16,8 @@ initialize = do
   authority <- allocatePartyWithHint "authority" (PartyIdHint "authority")
   hospital <- allocatePartyWithHint "hospital" (PartyIdHint "hospital")
   let 
-    aliceDetails = PersonalDetails with name ="Alice" ; phoneNo = "00000" ; address = "address"
-    bobDeatils = PersonalDetails with name ="Bob" ; phoneNo = "00001" ; address = "address2"
+    aliceDetails = PersonalDetails with name ="Alice" ; phoneNo = "00000" ; address = "address" ; pincode = 10000
+    bobDeatils = PersonalDetails with name ="Bob" ; phoneNo = "00001" ; address = "address2"; pincode = 10000
   
 
 
